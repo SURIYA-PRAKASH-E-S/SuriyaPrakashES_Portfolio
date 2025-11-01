@@ -1,168 +1,252 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useHeroData } from '../hooks/usePortfolioData';
+import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { FiExternalLink, FiFile } from "react-icons/fi";
+import { useHeroData } from "../hooks/usePortfolioData";
+import HeroAvatar from "./HeroAvatar";
 
-const Hero = () => {
-  const { data: heroData, loading, error } = useHeroData();
-  const [currentRole, setCurrentRole] = useState(0);
-  const [displayText, setDisplayText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
+// Magic UI Particles Component (Dark Mode Only)
+const Particles = ({ className = "", quantity = 100, staticity = 50, ease = 50 }) => {
+  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
+  const ctx = useRef(null);
+  const circles = useRef([]);
+  const mouse = useRef({ x: 0, y: 0 });
+  const size = useRef({ w: 0, h: 0 });
+  const dpr = window.devicePixelRatio || 1;
+  const raf = useRef(null);
 
-  // Default data in case Firebase is not connected
-  const defaultHeroData = {
-    name: 'Suriya Prakash',
-    description: 'Passionate about creating innovative solutions and bringing ideas to life through code. Currently based in Tamil Nadu, India.',
-    location: 'Tamil Nadu, India',
-    roles: ['Engineering Student', 'Full Stack Developer', 'Problem Solver', 'Tech Enthusiast'],
-    avatar: ''
+  useEffect(() => {
+    ctx.current = canvasRef.current.getContext("2d");
+    init();
+    animate();
+
+    const handleMouseMove = (e) => {
+      if (!canvasRef.current) return;
+      const rect = canvasRef.current.getBoundingClientRect();
+      mouse.current.x = e.clientX - rect.left - size.current.w / 2;
+      mouse.current.y = e.clientY - rect.top - size.current.h / 2;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("resize", init);
+    return () => {
+      cancelAnimationFrame(raf.current);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", init);
+    };
+  }, []);
+
+  const init = () => {
+    size.current.w = containerRef.current.offsetWidth;
+    size.current.h = containerRef.current.offsetHeight;
+    canvasRef.current.width = size.current.w * dpr;
+    canvasRef.current.height = size.current.h * dpr;
+    canvasRef.current.style.width = `${size.current.w}px`;
+    canvasRef.current.style.height = `${size.current.h}px`;
+    ctx.current.scale(dpr, dpr);
+    circles.current = Array.from({ length: quantity }, () => createCircle());
   };
 
-  const data = heroData || defaultHeroData;
-  const roles = data.roles || defaultHeroData.roles;
+  const createCircle = () => ({
+    x: Math.random() * size.current.w,
+    y: Math.random() * size.current.h,
+    dx: (Math.random() - 0.5) * 0.1,
+    dy: (Math.random() - 0.5) * 0.1,
+    size: Math.random() * 2 + 0.5,
+    alpha: 0,
+    targetAlpha: Math.random() * 0.6 + 0.2,
+  });
 
-  // Typewriter effect
+  const drawCircle = (c) => {
+    ctx.current.beginPath();
+    ctx.current.arc(c.x, c.y, c.size, 0, Math.PI * 2);
+    ctx.current.fillStyle = `rgba(255, 255, 255, ${c.alpha})`;
+    ctx.current.fill();
+  };
+
+  const animate = () => {
+    ctx.current.clearRect(0, 0, size.current.w, size.current.h);
+    circles.current.forEach((c) => {
+      c.x += c.dx;
+      c.y += c.dy;
+      c.alpha = Math.min(c.targetAlpha, c.alpha + 0.02);
+      drawCircle(c);
+      if (
+        c.x < -c.size ||
+        c.x > size.current.w + c.size ||
+        c.y < -c.size ||
+        c.y > size.current.h + c.size
+      ) {
+        Object.assign(c, createCircle());
+      }
+    });
+    raf.current = requestAnimationFrame(animate);
+  };
+
+  return (
+    <div className={`pointer-events-none ${className}`} ref={containerRef}>
+      <canvas ref={canvasRef} className="w-full h-full" />
+    </div>
+  );
+};
+
+const Hero = () => {
+  const { data: heroData, loading } = useHeroData();
+  const [currentRole, setCurrentRole] = useState(0);
+  const [text, setText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const defaultHero = {
+    name: "Suriya Prakash",
+    description:
+      "Passionate about building immersive digital experiences using modern technologies. Always learning, always creating.",
+    roles: ["Full Stack Developer", "Tech Enthusiast", "Problem Solver"],
+    avatar: "",
+    animatedAvatar: "",
+    cvUrl: "",
+    cvName: ""
+  };
+
+  const data = heroData || defaultHero;
+  const roles = data.roles || defaultHero.roles;
+
   useEffect(() => {
-    if (roles.length === 0) return;
-
-    const current = roles[currentRole];
-    
+    const role = roles[currentRole];
     const timer = setTimeout(() => {
-      if (!isDeleting) {
-        if (displayText.length < current.length) {
-          setDisplayText(current.slice(0, displayText.length + 1));
+      if (!deleting) {
+        if (text.length < role.length) {
+          setText(role.slice(0, text.length + 1));
         } else {
-          setTimeout(() => setIsDeleting(true), 2000);
+          setTimeout(() => setDeleting(true), 1500);
         }
       } else {
-        if (displayText.length > 0) {
-          setDisplayText(current.slice(0, displayText.length - 1));
+        if (text.length > 0) {
+          setText(role.slice(0, text.length - 1));
         } else {
-          setIsDeleting(false);
+          setDeleting(false);
           setCurrentRole((prev) => (prev + 1) % roles.length);
         }
       }
-    }, isDeleting ? 50 : 100);
-
+    }, deleting ? 50 : 100);
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, currentRole, roles]);
+  }, [text, deleting, currentRole, roles]);
+
+  const handleViewCV = () => {
+    if (data.cvUrl) {
+      // Open CV in a new tab
+      window.open(data.cvUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   if (loading) {
     return (
-      <section id="hero" className="min-h-screen flex items-center justify-center pt-20">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Loading...</p>
-        </div>
+      <section className="min-h-screen flex items-center justify-center bg-gray-900">
+        <div className="text-center text-gray-300">Loading...</div>
       </section>
     );
   }
 
-  if (error) {
-    console.error('Error loading hero data:', error);
-    // Continue with default data, don't break the UI
-  }
-
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-20">
-      <div className="container mx-auto px-4 py-16">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Text Content */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+    <section
+      id="hero"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 via-black to-gray-950 relative overflow-hidden text-white"
+    >
+      {/* Dark Particles */}
+      <Particles className="absolute inset-0" />
+
+      {/* Glowing gradient blobs */}
+      <motion.div
+        className="absolute top-1/3 -left-20 w-72 h-72 bg-purple-600/30 rounded-full blur-3xl"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: 6, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-1/3 -right-20 w-72 h-72 bg-blue-600/30 rounded-full blur-3xl"
+        animate={{ scale: [1.1, 0.9, 1.1], opacity: [0.6, 0.4, 0.6] }}
+        transition={{ duration: 7, repeat: Infinity }}
+      />
+
+      <div className="relative z-10 container mx-auto px-6 flex flex-col lg:flex-row items-center justify-between">
+        {/* Text Content */}
+        <div className="lg:w-1/2 text-center lg:text-left">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="lg:w-1/2 text-center lg:text-left"
+            className="text-5xl md:text-6xl font-bold mb-4"
           >
-            <motion.h1 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
-            >
-              Hi, I'm{' '}
-              <span className="text-blue-600 dark:text-blue-400">
-                {data.name}
-              </span>
-            </motion.h1>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4 h-8"
-            >
-              I am a{' '}
-              <span className="text-blue-600 dark:text-blue-400 font-semibold">
-                {displayText}
-                <span className="animate-pulse">|</span>
-              </span>
-            </motion.div>
+            Hi, I'm{" "}
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              {data.name}
+            </span>
+          </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl"
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-xl md:text-2xl font-medium text-blue-300 mb-6"
+          >
+            {text}
+            <motion.span
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+              className="text-purple-400"
             >
-              {data.description}
-            </motion.p>
+              |
+            </motion.span>
+          </motion.h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="text-gray-500 dark:text-gray-400 mb-8 flex items-center justify-center lg:justify-start"
-            >
-              📍 {data.location}
-            </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="text-gray-300 mb-8 max-w-2xl leading-relaxed"
+          >
+            {data.description}
+          </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            >
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-lg">
-                View My Work
-              </button>
-              <button className="border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-600 dark:hover:border-blue-400 px-8 py-3 rounded-lg font-semibold transition-colors">
-                Download CV
-              </button>
-            </motion.div>
-          </motion.div>
-
-          {/* Avatar Image */}
           <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:w-1/2 flex justify-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
           >
-            <div className="relative">
-              <div className="w-64 h-64 md:w-80 md:h-80 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center shadow-2xl">
-                <div className="w-60 h-60 md:w-72 md:h-72 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden border-4 border-white dark:border-gray-800">
-                  {data.avatar ? (
-                    <img 
-                      src={data.avatar} 
-                      alt={data.name}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                    />
-                  ) : null}
-                  <div className={`w-full h-full flex items-center justify-center text-gray-400 ${data.avatar ? 'hidden' : 'flex'}`}>
-                    <span className="text-sm">Your Photo</span>
-                  </div>
-                </div>
-              </div>
-              {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-bounce"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-green-400 rounded-full animate-pulse"></div>
-            </div>
+            <motion.button
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 30px rgba(147, 51, 234, 0.6)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() =>
+                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 justify-center"
+            >
+              <FiExternalLink className="w-5 h-5" />
+              View My Work
+            </motion.button>
+
+            {data.cvUrl && (
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 0 30px rgba(239, 68, 68, 0.6)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleViewCV}
+                className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-orange-700 hover:to-red-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 justify-center"
+              >
+                <FiFile className="w-5 h-5" />
+                View CV
+              </motion.button>
+            )}
           </motion.div>
         </div>
+
+        {/* Hero Avatar */}
+        <HeroAvatar data={data} isHovering={isHovering} setIsHovering={setIsHovering} />
       </div>
     </section>
   );

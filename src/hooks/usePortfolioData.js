@@ -35,3 +35,4 @@ export const useProjectsData = () => usePortfolioData('projects');
 export const useSkillsData = () => usePortfolioData('skills');
 export const useActivitiesData = () => usePortfolioData('activities');
 export const useSocialData = () => usePortfolioData('social');
+export const useContactData = () => usePortfolioData('contact'); // Add this line

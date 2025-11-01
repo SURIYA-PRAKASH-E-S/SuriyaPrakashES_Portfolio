@@ -13,11 +13,11 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Log configuration for debugging (remove in production)
-console.log('Firebase Config:', {
-  projectId: firebaseConfig.projectId,
-  databaseURL: firebaseConfig.databaseURL
-});
+// // Log configuration for debugging (remove in production)
+// console.log('Firebase Config:', {
+//   projectId: firebaseConfig.projectId,
+//   databaseURL: firebaseConfig.databaseURL
+// });
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

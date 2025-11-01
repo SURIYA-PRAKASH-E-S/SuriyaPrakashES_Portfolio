@@ -1,212 +1,217 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  FiCode, 
-  FiDatabase, 
-  FiCloud, 
-  FiTool,
-  FiChevronDown,
-  FiChevronUp 
-} from 'react-icons/fi';
+import React, { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { useSkillsData } from "../hooks/usePortfolioData";
+import { Cloud, fetchSimpleIcons, renderSimpleIcon } from "react-icon-cloud";
+
+// 3D Cloud configuration
+const cloudProps = {
+  containerProps: {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      height: "400px",
+    },
+  },
+  options: {
+    reverse: true,
+    depth: 1,
+    wheelZoom: false,
+    imageScale: 2,
+    activeCursor: "default",
+    tooltip: "native",
+    initial: [0.1, -0.1],
+    clickToFront: 500,
+    tooltipDelay: 0,
+    outlineColour: "#0000",
+    maxSpeed: 0.04,
+    minSpeed: 0.02,
+    dragControl: true,
+  },
+};
+
+const renderCustomIcon = (icon, theme) => {
+  const bgHex = theme === "light" ? "#f3f2ef" : "#080510";
+  const fallbackHex = theme === "light" ? "#6e6e73" : "#ffffff";
+  const minContrastRatio = theme === "dark" ? 2 : 1.2;
+
+  return renderSimpleIcon({
+    icon,
+    bgHex,
+    fallbackHex,
+    minContrastRatio,
+    size: 42,
+    aProps: {
+      href: undefined,
+      target: undefined,
+      rel: undefined,
+      onClick: (e) => e.preventDefault(),
+    },
+  });
+};
+
+const IconCloud = ({ iconSlugs, theme = "light" }) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetchSimpleIcons({ slugs: iconSlugs }).then(setData);
+  }, [iconSlugs]);
+
+  const renderedIcons = useMemo(() => {
+    if (!data) return null;
+    return Object.values(data.simpleIcons).map((icon) =>
+      renderCustomIcon(icon, theme)
+    );
+  }, [data, theme]);
+
+  return (
+    <Cloud {...cloudProps}>
+      <>{renderedIcons}</>
+    </Cloud>
+  );
+};
 
 const Skills = () => {
-  const [activeCategory, setActiveCategory] = useState('frontend');
+  const { data: skillsData, loading, error } = useSkillsData();
+  const [theme, setTheme] = useState("light");
 
-  const skillsData = {
-    frontend: {
-      icon: <FiCode className="w-6 h-6" />,
-      title: "Frontend Development",
-      skills: [
-        { name: "React", level: 90, icon: "⚛️" },
-        { name: "JavaScript", level: 85, icon: "🟨" },
-        { name: "TypeScript", level: 75, icon: "🔷" },
-        { name: "HTML5", level: 95, icon: "🌐" },
-        { name: "CSS3", level: 90, icon: "🎨" },
-        { name: "Tailwind CSS", level: 88, icon: "💨" }
-      ]
-    },
-    backend: {
-      icon: <FiDatabase className="w-6 h-6" />,
-      title: "Backend Development",
-      skills: [
-        { name: "Node.js", level: 80, icon: "🟢" },
-        { name: "Express.js", level: 75, icon: "🚂" },
-        { name: "Python", level: 70, icon: "🐍" },
-        { name: "MongoDB", level: 75, icon: "🍃" },
-        { name: "MySQL", level: 70, icon: "🐬" },
-        { name: "REST APIs", level: 85, icon: "🔗" }
-      ]
-    },
-    cloud: {
-      icon: <FiCloud className="w-6 h-6" />,
-      title: "Cloud & DevOps",
-      skills: [
-        { name: "AWS", level: 65, icon: "☁️" },
-        { name: "Firebase", level: 80, icon: "🔥" },
-        { name: "Docker", level: 60, icon: "🐳" },
-        { name: "Git", level: 85, icon: "📚" },
-        { name: "CI/CD", level: 65, icon: "🔄" }
-      ]
-    },
-    tools: {
-      icon: <FiTool className="w-6 h-6" />,
-      title: "Tools & Others",
-      skills: [
-        { name: "GitHub", level: 90, icon: "🐙" },
-        { name: "VS Code", level: 95, icon: "💻" },
-        { name: "Figma", level: 70, icon: "🎨" },
-        { name: "Postman", level: 80, icon: "📬" },
-        { name: "Linux", level: 75, icon: "🐧" }
-      ]
-    }
-  };
+  // Default skills
+  const defaultSkills = [
+    { name: "JavaScript", iconSlug: "javascript" },
+    { name: "TypeScript", iconSlug: "typescript" },
+    { name: "React", iconSlug: "react" },
+    { name: "Node.js", iconSlug: "nodedotjs" },
+    { name: "Python", iconSlug: "python" },
+    { name: "HTML5", iconSlug: "html5" },
+    { name: "CSS3", iconSlug: "css3" },
+    { name: "Tailwind CSS", iconSlug: "tailwindcss" },
+    { name: "MongoDB", iconSlug: "mongodb" },
+    { name: "MySQL", iconSlug: "mysql" },
+    { name: "Firebase", iconSlug: "firebase" },
+    { name: "AWS", iconSlug: "amazonaws" },
+    { name: "Docker", iconSlug: "docker" },
+    { name: "Git", iconSlug: "git" },
+    { name: "GitHub", iconSlug: "github" },
+    { name: "VS Code", iconSlug: "visualstudiocode" },
+    { name: "Figma", iconSlug: "figma" },
+    { name: "Postman", iconSlug: "postman" },
+    { name: "Linux", iconSlug: "linux" },
+    { name: "NPM", iconSlug: "npm" },
+  ];
 
-  const categories = Object.keys(skillsData);
+  const skills =
+    Array.isArray(skillsData) && skillsData.length > 0
+      ? skillsData
+      : defaultSkills;
+
+  const iconSlugs = skills.map((s) => s.iconSlug).filter(Boolean);
+
+  useEffect(() => {
+    const isDark = document.documentElement.classList.contains("dark");
+    setTheme(isDark ? "dark" : "light");
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.05 } },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, scale: 0 },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5
-      }
-    }
+      scale: 1,
+      transition: { duration: 0.3 },
+    },
   };
 
-  const ProgressBar = ({ level }) => (
-    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-      <motion.div
-        initial={{ width: 0 }}
-        whileInView={{ width: `${level}%` }}
-        transition={{ duration: 1, delay: 0.2 }}
-        viewport={{ once: true }}
-        className="bg-blue-600 h-2 rounded-full"
-      />
-    </div>
-  );
+  if (loading) {
+    return (
+      <section id="skills" className="py-20 text-center">
+        <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-gray-600 dark:text-gray-400">Loading skills...</p>
+      </section>
+    );
+  }
+
+  if (error) console.error("Error loading skills data:", error);
 
   return (
-    <section id="skills" className="py-20">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Skills & Technologies
-          </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Here are the technologies and tools I work with to bring ideas to life.
-          </p>
-        </motion.div>
+    <section
+      id="skills"
+      className="relative py-20 md:py-28 bg-transparent text-center overflow-hidden"
+    >
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="mb-16"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-black mb-4">
+          Skills
+        </h2>
+        <div className="w-24 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-yellow-500 mx-auto mb-6 rounded-full"></div>
+        <p className="text-lg text-black dark:text-black max-w-2xl mx-auto">
+          Technologies I work with to build innovative digital experiences
+        </p>
+      </motion.div>
 
-        {/* Category Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
-        >
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all ${
-                activeCategory === category
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
-              }`}
-            >
-              <div className={`p-2 rounded-lg ${
-                activeCategory === category
-                  ? 'bg-white/20'
-                  : 'bg-white dark:bg-gray-700'
-              }`}>
-                {skillsData[category].icon}
-              </div>
-              {skillsData[category].title}
-            </button>
-          ))}
-        </motion.div>
-
-        {/* Skills Grid */}
-        <motion.div
-          key={activeCategory}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
-        >
-          {skillsData[activeCategory].skills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              variants={itemVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover={{ scale: 1.02 }}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{skill.icon}</span>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {skill.name}
-                  </h3>
-                </div>
-                <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                  {skill.level}%
-                </span>
-              </div>
-              <ProgressBar level={skill.level} />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Visual Skills Display */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-16"
-        >
-          <h3 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-8">
-            Technology Stack
-          </h3>
-          <div className="flex flex-wrap justify-center gap-6">
-            {Object.values(skillsData).flatMap(category => 
-              category.skills.map(skill => (
-                <motion.div
-                  key={skill.name}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  className="flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700"
-                >
-                  <span className="text-3xl mb-2">{skill.icon}</span>
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    {skill.name}
-                  </span>
-                </motion.div>
-              ))
-            )}
+      {/* 3D Cloud */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="relative h-96 flex items-center justify-center mb-16"
+      >
+        {iconSlugs.length > 0 ? (
+          <IconCloud iconSlugs={iconSlugs} theme={theme} />
+        ) : (
+          <div className="text-center text-gray-500 dark:text-gray-400">
+            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p>Loading 3D Tech Cloud...</p>
           </div>
-        </motion.div>
-      </div>
+        )}
+      </motion.div>
+
+      {/* Skills Buttons */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="flex flex-wrap justify-center gap-4 px-6"
+      >
+        {skills.map((skill) => (
+          <motion.button
+            key={skill.name}
+            variants={itemVariants}
+            whileHover={{
+              scale: 1.08,
+              background:
+                "linear-gradient(to right, #3b82f6, #a855f7, #facc15)",
+              color: "#fff",
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="
+              px-8 py-3
+              rounded-full
+              font-semibold
+              text-black dark:text-black
+              bg-white/30 dark:bg-gray-800/40
+              backdrop-blur-md
+              shadow-md hover:shadow-xl
+              border border-gray-300/40 dark:border-gray-600/40
+              transition-all duration-300 ease-in-out
+            "
+          >
+            {skill.name}
+          </motion.button>
+        ))}
+      </motion.div>
     </section>
   );
 };

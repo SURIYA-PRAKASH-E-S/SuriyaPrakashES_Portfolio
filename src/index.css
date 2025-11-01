@@ -1,56 +1,136 @@
 @import "tailwindcss";
 
+/* ================================
+   🌞 LIGHT THEME VARIABLES
+   ================================ */
+
 :root {
+  /* Primary Colors */
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
   --color-blue-600: #2563eb;
   --color-blue-700: #1d4ed8;
+
+  /* Neutral / Gray Scale (Light Mode) */
   --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-600: #4b5563;
+  --color-gray-800: #1f2937;
   --color-gray-900: #111827;
+
+  /* Theme Colors */
+  --color-bg: var(--color-gray-50);
+  --color-text: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-700);
+  --color-border: var(--color-gray-200);
+  --color-accent: var(--color-blue-600);
+  --color-accent-hover: var(--color-blue-700);
 }
+
+/* ================================
+   🌚 DARK THEME OVERRIDES
+   ================================ */
 
 .dark {
+  --color-blue-600: #3b82f6;
+  --color-blue-700: #2563eb;
+
   --color-gray-50: #111827;
+  --color-gray-100: #1f2937;
+  --color-gray-200: #374151;
+  --color-gray-400: #9ca3af;
+  --color-gray-600: #9ca3af;
+  --color-gray-800: #d1d5db;
   --color-gray-900: #f9fafb;
+
+  --color-bg: var(--color-gray-50);
+  --color-text: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-600);
+  --color-border: var(--color-gray-200);
+  --color-accent: var(--color-blue-600);
+  --color-accent-hover: var(--color-blue-700);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.dark ::-webkit-scrollbar-track {
-  background: #374151;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #6b7280;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a1a1a1;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
-}
+/* ================================
+   🧭 GLOBAL STYLES
+   ================================ */
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Line clamp utility */
+/* Base background and text colors */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ================================
+   🧷 CUSTOM SCROLLBAR
+   ================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-gray-100);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-gray-200);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-300);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-gray-600);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-600);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-800);
+}
+
+/* ================================
+   🧩 UTILITIES
+   ================================ */
+
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Loader animation: "working on laptop" style bars */
+.loader {
+  width: 60px;
+  height: 50px;
+  --m: no-repeat linear-gradient(90deg, #000 70%, #0000 0);
+  -webkit-mask: 
+    var(--m) calc(0*100%/4) 100%/calc(100%/5) calc(1*100%/5),
+    var(--m) calc(1*100%/4) 100%/calc(100%/5) calc(2*100%/5),
+    var(--m) calc(2*100%/4) 100%/calc(100%/5) calc(3*100%/5),
+    var(--m) calc(3*100%/4) 100%/calc(100%/5) calc(4*100%/5),
+    var(--m) calc(4*100%/4) 100%/calc(100%/5) calc(5*100%/5);
+  background: linear-gradient(#514b82 0 0) left/0% 100% no-repeat #ddd;
+  animation: l14 2s infinite steps(6);
+}
+
+@keyframes l14 {
+  100% {
+    background-size: 120% 100%;
+  }
 }

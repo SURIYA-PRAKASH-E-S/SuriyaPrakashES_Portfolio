@@ -7,13 +7,11 @@ import { FiMail, FiLock, FiArrowLeft, FiUser, FiEye, FiEyeOff } from 'react-icon
 const AdminSignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
 
-  const { user, signin, signup } = useAuth();
+  const { user, signin } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already authenticated
@@ -25,14 +23,9 @@ const AdminSignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!email || !password) {
       setMessage({ type: 'error', text: 'Please fill in all fields' });
-      return;
-    }
-
-    if (isSignUp && !displayName) {
-      setMessage({ type: 'error', text: 'Please enter your name' });
       return;
     }
 
@@ -40,19 +33,10 @@ const AdminSignIn = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      let result;
-      
-      if (isSignUp) {
-        result = await signup(email, password, displayName);
-      } else {
-        result = await signin(email, password);
-      }
+      const result = await signin(email, password);
 
       if (result.success) {
-        setMessage({ 
-          type: 'success', 
-          text: isSignUp ? 'Account created successfully!' : 'Login successful!' 
-        });
+        setMessage({ type: 'success', text: 'Login successful!' });
         navigate('/admin');
       } else {
         setMessage({ type: 'error', text: result.message });
@@ -60,14 +44,8 @@ const AdminSignIn = () => {
     } catch (error) {
       setMessage({ type: 'error', text: 'An unexpected error occurred' });
     }
-    
-    setLoading(false);
-  };
 
-  const toggleMode = () => {
-    setIsSignUp(!isSignUp);
-    setMessage({ type: '', text: '' });
-    setDisplayName('');
+    setLoading(false);
   };
 
   return (
@@ -94,13 +72,10 @@ const AdminSignIn = () => {
               <FiUser className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              {isSignUp ? 'Create Admin Account' : 'Admin Sign In'}
+              Admin Sign In
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
-              {isSignUp 
-                ? 'Create your admin account to manage the portfolio' 
-                : 'Sign in to manage your portfolio content'
-              }
+              Sign in to manage your portfolio content
             </p>
           </div>
 
@@ -110,8 +85,8 @@ const AdminSignIn = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               className={`p-4 rounded-lg mb-6 ${
-                message.type === 'error' 
-                  ? 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300' 
+                message.type === 'error'
+                  ? 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300'
                   : 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
               }`}
             >
@@ -119,39 +94,13 @@ const AdminSignIn = () => {
             </motion.div>
           )}
 
-          {/* Sign In/Sign Up Form */}
+          {/* Sign In Form */}
           <motion.form
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            {/* Display Name Field (Sign Up only) */}
-            {isSignUp && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                className="overflow-hidden"
-              >
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Full Name
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiUser className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="text"
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                    placeholder="Enter your full name"
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                    required={isSignUp}
-                  />
-                </div>
-              </motion.div>
-            )}
-
             {/* Email Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -182,7 +131,7 @@ const AdminSignIn = () => {
                   <FiLock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
@@ -197,11 +146,6 @@ const AdminSignIn = () => {
                   {showPassword ? <FiEyeOff className="h-5 w-5" /> : <FiEye className="h-5 w-5" />}
                 </button>
               </div>
-              {isSignUp && (
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                  Password must be at least 6 characters long
-                </p>
-              )}
             </div>
 
             {/* Submit Button */}
@@ -213,31 +157,16 @@ const AdminSignIn = () => {
               {loading ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  {isSignUp ? 'Creating Account...' : 'Signing In...'}
+                  Signing In...
                 </>
               ) : (
                 <>
                   <FiLock className="w-5 h-5" />
-                  {isSignUp ? 'Create Account' : 'Sign In'}
+                  Sign In
                 </>
               )}
             </button>
           </motion.form>
-
-          {/* Toggle between Sign In and Sign Up */}
-          <div className="mt-6 text-center">
-            <p className="text-gray-600 dark:text-gray-400">
-              {isSignUp ? 'Already have an account?' : "Don't have an account?"}
-              {' '}
-              <button
-                type="button"
-                onClick={toggleMode}
-                className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
-              >
-                {isSignUp ? 'Sign In' : 'Create Account'}
-              </button>
-            </p>
-          </div>
 
           {/* Admin Note */}
           <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">

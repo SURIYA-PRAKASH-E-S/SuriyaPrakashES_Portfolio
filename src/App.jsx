@@ -3,19 +3,20 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { FirebaseProvider } from './contexts/FirebaseContext';
 import { AuthProvider } from './contexts/AuthContext';
-import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
 import Activities from './components/Activities';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
-import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 import AdminSignIn from './pages/AdminSignIn';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import FooterDock from './components/FooterDock';
 
+
+// @suriyaes2004
 function App() {
   return (
     <ThemeProvider>
@@ -27,7 +28,6 @@ function App() {
                 {/* Public Routes */}
                 <Route path="/" element={
                   <>
-                    <Header />
                     <main>
                       <Hero />
                       <About />
@@ -36,7 +36,7 @@ function App() {
                       <Skills />
                       <Contact />
                     </main>
-                    <Footer />
+                    <FooterDock />
                   </>
                 } />
                 
@@ -61,3 +61,5 @@ function App() {
 }
 
 export default App;
+
+// Reserved by @2025 Suriya Prakash E S
