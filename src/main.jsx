@@ -1,13 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-//Resversed by ESSP2004
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css' // This should import your CSS
+import App from './App.jsx'
 
-// ESSP2004
+//Created by @suriyaes
+
+const root = createRoot(document.getElementById('root'))
+
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+
+// Made With ❤️by Suriya Prakash E S

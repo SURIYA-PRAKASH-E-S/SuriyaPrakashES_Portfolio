@@ -14,9 +14,8 @@ import AdminSignIn from './pages/AdminSignIn';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import FooterDock from './components/FooterDock';
+// Remove ThemeToggle import
 
-
-// @suriyaes2004
 function App() {
   return (
     <ThemeProvider>
@@ -24,6 +23,8 @@ function App() {
         <AuthProvider>
           <Router>
             <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+              {/* Remove ThemeToggle component from here */}
+              
               <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={

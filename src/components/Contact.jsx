@@ -121,7 +121,7 @@ const Contact = () => {
             Let’s Connect 💬
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6 rounded-full"></div>
-          <p className="text-lg text-gray-900 dark:text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-blue-700 dark:text-blue-400 max-w-2xl mx-auto leading-relaxed">
             I’d love to hear from you — whether it’s about a project, an opportunity, or just a friendly chat.
           </p>
         </motion.div>

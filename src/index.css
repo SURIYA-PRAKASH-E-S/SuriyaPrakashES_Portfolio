@@ -3,7 +3,6 @@
 /* ================================
    🌞 LIGHT THEME VARIABLES
    ================================ */
-
 :root {
   /* Primary Colors */
   --color-blue-50: #eff6ff;
@@ -33,8 +32,7 @@
 /* ================================
    🌚 DARK THEME OVERRIDES
    ================================ */
-
-.dark {
+:root[class~="dark"] {
   --color-blue-600: #3b82f6;
   --color-blue-700: #2563eb;
 
@@ -57,13 +55,10 @@
 /* ================================
    🧭 GLOBAL STYLES
    ================================ */
-
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Base background and text colors */
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -73,7 +68,6 @@ body {
 /* ================================
    🧷 CUSTOM SCROLLBAR
    ================================ */
-
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -82,7 +76,7 @@ body {
   background: var(--color-gray-100);
 }
 
-.dark ::-webkit-scrollbar-track {
+:root[class~="dark"] ::-webkit-scrollbar-track {
   background: var(--color-gray-200);
 }
 
@@ -91,7 +85,7 @@ body {
   border-radius: 4px;
 }
 
-.dark ::-webkit-scrollbar-thumb {
+:root[class~="dark"] ::-webkit-scrollbar-thumb {
   background: var(--color-gray-600);
 }
 
@@ -99,14 +93,13 @@ body {
   background: var(--color-gray-600);
 }
 
-.dark ::-webkit-scrollbar-thumb:hover {
+:root[class~="dark"] ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gray-800);
 }
 
 /* ================================
    🧩 UTILITIES
    ================================ */
-
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -114,7 +107,7 @@ body {
   overflow: hidden;
 }
 
-/* Loader animation: "working on laptop" style bars */
+/* Loader animation */
 .loader {
   width: 60px;
   height: 50px;
@@ -133,4 +126,9 @@ body {
   100% {
     background-size: 120% 100%;
   }
+}
+
+/* Force Tailwind to include admin classes */
+.admin-styles {
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   FiGithub,
@@ -11,31 +11,12 @@ import {
   FiMail,
 } from 'react-icons/fi';
 import { useContactData } from '../hooks/usePortfolioData';
+import { useTheme } from '../contexts/ThemeContext'; // Import useTheme
 
 const FooterDock = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { isDark, toggleTheme } = useTheme(); // Use the theme context
   const [isHovered, setIsHovered] = useState(false);
   const { data: contactData } = useContactData();
-
-  useEffect(() => {
-    const isDark =
-      localStorage.getItem('darkMode') === 'true' ||
-      (!('darkMode' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches);
-    setDarkMode(isDark);
-  }, []);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('darkMode', 'true');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('darkMode', 'false');
-    }
-  }, [darkMode]);
-
-  const toggleTheme = () => setDarkMode(!darkMode);
 
   const socialLinks = [
     { icon: <FiGithub />, name: 'GitHub', url: contactData?.social?.github },
@@ -158,7 +139,7 @@ const FooterDock = () => {
           <FiMail className="w-5 h-5" />
         </motion.button>
 
-        {/* Theme Toggle */}
+        {/* Theme Toggle - Now using the context */}
         <motion.button
           onClick={toggleTheme}
           whileHover={{ scale: 1.1, y: -2 }}
@@ -170,12 +151,12 @@ const FooterDock = () => {
             hover:bg-yellow-50 dark:hover:bg-yellow-900/30
             transition-all duration-200
           "
-          title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         >
-          {darkMode ? (
-            <FiSun className="w-5 h-5" />
-          ) : (
+          {isDark ? (
             <FiMoon className="w-5 h-5" />
+          ) : (
+            <FiSun className="w-5 h-5" />
           )}
         </motion.button>
       </motion.div>

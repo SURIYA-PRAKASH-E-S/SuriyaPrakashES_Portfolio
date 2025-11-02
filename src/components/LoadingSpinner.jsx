@@ -11,7 +11,7 @@ const LoadingSpinner = () => {
   <div className="text-center">
     <div className="loader mx-auto mb-4"></div>
     <p className="text-xl text-center text-gray-700  dark:text-gray-400 font-medium">
-      Loading Please Wait 👩‍💻 ...
+      Loading Portfolio👩‍💻 ...
     </p>
   </div>
 </div>

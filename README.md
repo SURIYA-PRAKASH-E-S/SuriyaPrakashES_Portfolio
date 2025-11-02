@@ -1,6 +1,6 @@
-# 🌐 Modern Portfolio
+# 🌐 Portfolio Website
 
-A sleek, responsive, and animated **Developer portfolio** built using modern web technologies.  
+A sleek, responsive, and animated **Modern portfolio** built using modern web technologies.  
 This project showcases professional projects, experience, and contact details — designed with performance, scalability, and style in mind.
 
 ---
@@ -40,14 +40,7 @@ It includes light/dark themes, smooth animations, social integration, and real-t
 
 ## 🖥️ Demo
 
-🔗 **Live Demo:** [View Portfolio](https://your-demo-link-here.com)
-
----
-
-## 🧑‍💻 Developed By
-
-**ES**  
-🔗 [GitHub Profile](https://github.com/SURIYA-PRAKASH-E-S)
+🔗 **Live Demo:** [View Portfolio](https://suriyaes-portfolio.web.app/)
 
 ---
 
@@ -67,7 +60,7 @@ firebase deploy
 
 ## 📸 Preview
 
-![Modern Portfolio Preview]()
+![Modern Portfolio Preview](https://res.cloudinary.com/dq7pfdfcj/image/upload/v1762075499/Screenshot_2025-11-02_145133_kqg0y9.png)
 
 ---
 

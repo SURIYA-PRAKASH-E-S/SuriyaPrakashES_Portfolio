@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const ThemeContext = createContext();
 
@@ -12,36 +12,76 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Initialize theme from localStorage or system preference
   useEffect(() => {
+    // Check for saved theme preference or system preference
     const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    let themeToSet = false;
+    
     if (savedTheme) {
-      setIsDark(savedTheme === 'dark');
+      // Use saved theme preference
+      themeToSet = savedTheme === 'dark';
     } else {
-      // Check system preference
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setIsDark(systemPrefersDark);
+      // Use system preference if no saved preference
+      themeToSet = systemPrefersDark;
     }
-  }, []);
-
-  // Update localStorage and document class when theme changes
-  useEffect(() => {
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    if (isDark) {
+    
+    setIsDark(themeToSet);
+    
+    // Apply the theme to the document
+    if (themeToSet) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, [isDark]);
+    
+    setIsLoaded(true);
+    
+    console.log('🎨 Theme loaded:', {
+      savedTheme,
+      systemPrefersDark,
+      appliedTheme: themeToSet ? 'dark' : 'light'
+    });
+  }, []);
 
   const toggleTheme = () => {
-    setIsDark(prev => !prev);
+    const newIsDark = !isDark;
+    setIsDark(newIsDark);
+    
+    // Update document class
+    if (newIsDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+    
+    console.log('🎨 Theme toggled to:', newIsDark ? 'dark' : 'light');
+  };
+
+  const setTheme = (theme) => {
+    const newIsDark = theme === 'dark';
+    setIsDark(newIsDark);
+    
+    if (newIsDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   };
 
   const value = {
     isDark,
+    isLoaded,
     toggleTheme,
+    setTheme,
+    theme: isDark ? 'dark' : 'light'
   };
 
   return (
