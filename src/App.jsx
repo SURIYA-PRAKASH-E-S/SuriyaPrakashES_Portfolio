@@ -14,7 +14,6 @@ import AdminSignIn from './pages/AdminSignIn';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import FooterDock from './components/FooterDock';
-// Remove ThemeToggle import
 
 function App() {
   return (
@@ -22,8 +21,7 @@ function App() {
       <FirebaseProvider>
         <AuthProvider>
           <Router>
-            <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-              {/* Remove ThemeToggle component from here */}
+            {/* <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300"> */}
               
               <Routes>
                 {/* Public Routes */}
@@ -53,7 +51,7 @@ function App() {
                 />
               </Routes>
               <LoadingSpinner />
-            </div>
+            {/* </div> */}
           </Router>
         </AuthProvider>
       </FirebaseProvider>

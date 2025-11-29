@@ -151,7 +151,7 @@ const FooterDock = () => {
             hover:bg-yellow-50 dark:hover:bg-yellow-900/30
             transition-all duration-200
           "
-          title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          title={isDark ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
         >
           {isDark ? (
             <FiMoon className="w-5 h-5" />

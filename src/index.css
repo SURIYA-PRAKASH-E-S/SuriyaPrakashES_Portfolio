@@ -4,13 +4,14 @@
    🌞 LIGHT THEME VARIABLES
    ================================ */
 :root {
-  /* Primary Colors */
-  --color-blue-50: #eff6ff;
-  --color-blue-100: #dbeafe;
+  --color-bg: #f9fafb;
+  --color-text: #111827;
+  --color-text-secondary: #4b5563;
+  --color-border: #e5e7eb;
+
   --color-blue-600: #2563eb;
   --color-blue-700: #1d4ed8;
 
-  /* Neutral / Gray Scale (Light Mode) */
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
@@ -19,116 +20,157 @@
   --color-gray-600: #4b5563;
   --color-gray-800: #1f2937;
   --color-gray-900: #111827;
-
-  /* Theme Colors */
-  --color-bg: var(--color-gray-50);
-  --color-text: var(--color-gray-900);
-  --color-text-secondary: var(--color-gray-700);
-  --color-border: var(--color-gray-200);
-  --color-accent: var(--color-blue-600);
-  --color-accent-hover: var(--color-blue-700);
 }
 
 /* ================================
-   🌚 DARK THEME OVERRIDES
+   🌚 DARK MODE VARIABLES
    ================================ */
-:root[class~="dark"] {
+:root.dark {
+  --color-bg: #111827;
+  --color-text: #f3f4f6;
+  --color-text-secondary: #9ca3af;
+  --color-border: #374151;
+
   --color-blue-600: #3b82f6;
   --color-blue-700: #2563eb;
 
   --color-gray-50: #111827;
   --color-gray-100: #1f2937;
   --color-gray-200: #374151;
+  --color-gray-300: #4b5563;
   --color-gray-400: #9ca3af;
   --color-gray-600: #9ca3af;
   --color-gray-800: #d1d5db;
   --color-gray-900: #f9fafb;
-
-  --color-bg: var(--color-gray-50);
-  --color-text: var(--color-gray-900);
-  --color-text-secondary: var(--color-gray-600);
-  --color-border: var(--color-gray-200);
-  --color-accent: var(--color-blue-600);
-  --color-accent-hover: var(--color-blue-700);
 }
 
 /* ================================
-   🧭 GLOBAL STYLES
+   GLOBAL STYLES
    ================================ */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-text);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ================================
-   🧷 CUSTOM SCROLLBAR
-   ================================ */
+/* SCROLLBAR */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
-::-webkit-scrollbar-track {
-  background: var(--color-gray-100);
-}
-
-:root[class~="dark"] ::-webkit-scrollbar-track {
-  background: var(--color-gray-200);
-}
-
 ::-webkit-scrollbar-thumb {
   background: var(--color-gray-300);
   border-radius: 4px;
 }
-
-:root[class~="dark"] ::-webkit-scrollbar-thumb {
+:root.dark ::-webkit-scrollbar-thumb {
   background: var(--color-gray-600);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gray-600);
+
+/* Loader animation */ 
+.loader { width: 60px; height: 50px; --m: no-repeat linear-gradient(90deg, #000 70%, #0000 0);
+   -webkit-mask: var(--m) calc(0*100%/4) 100%/calc(100%/5) calc(1*100%/5), 
+   var(--m) calc(1*100%/4) 100%/calc(100%/5) calc(2*100%/5), var(--m) calc(2*100%/4) 100%/calc(100%/5) calc(3*100%/5),
+    var(--m) calc(3*100%/4) 100%/calc(100%/5) calc(4*100%/5), var(--m) calc(4*100%/4) 100%/calc(100%/5) calc(5*100%/5); 
+   background: linear-gradient(#514b82 0 0) left/0% 100% no-repeat #ddd; animation: l14 2s infinite steps(6); } 
+   
+   @keyframes l14 { 100% { background-size: 120% 100%; } }
+
+
+
+   /* ---------- Admin: force dark styles (scoped) ---------- */
+/* Add this to index.css (after your theme variables) */
+
+.admin-root {
+  /* main enforced admin background & text */
+  background-color: #0f1724 !important; /* solid dark background */
+  color: #e6eef8 !important;            /* bright readable text */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-:root[class~="dark"] ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gray-800);
+/* Ensure container blocks use dark backgrounds instead of bg-white */
+.admin-root .bg-white {
+  background-color: #0b1220 !important;
 }
 
-/* ================================
-   🧩 UTILITIES
-   ================================ */
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+/* Make common light text classes readable in admin */
+.admin-root .text-gray-900,
+.admin-root .text-black {
+  color: #ffffff !important;
+}
+.admin-root .text-gray-600,
+.admin-root .text-gray-700,
+.admin-root .text-gray-800 {
+  color: #cbd5e1 !important; /* slightly muted white */
+}
+.admin-root .text-gray-400,
+.admin-root .text-gray-500 {
+  color: #9ca3af !important;
 }
 
-/* Loader animation */
-.loader {
-  width: 60px;
-  height: 50px;
-  --m: no-repeat linear-gradient(90deg, #000 70%, #0000 0);
-  -webkit-mask: 
-    var(--m) calc(0*100%/4) 100%/calc(100%/5) calc(1*100%/5),
-    var(--m) calc(1*100%/4) 100%/calc(100%/5) calc(2*100%/5),
-    var(--m) calc(2*100%/4) 100%/calc(100%/5) calc(3*100%/5),
-    var(--m) calc(3*100%/4) 100%/calc(100%/5) calc(4*100%/5),
-    var(--m) calc(4*100%/4) 100%/calc(100%/5) calc(5*100%/5);
-  background: linear-gradient(#514b82 0 0) left/0% 100% no-repeat #ddd;
-  animation: l14 2s infinite steps(6);
+/* Overrides for borders and shadows so they are visible on dark */
+.admin-root .border-gray-200,
+.admin-root .border {
+  border-color: #374151 !important;
 }
 
-@keyframes l14 {
-  100% {
-    background-size: 120% 100%;
-  }
+/* Buttons that rely on light bg should use dark surfaces instead */
+.admin-root .bg-gray-50,
+.admin-root .bg-gray-100,
+.admin-root .bg-white-30 {
+  background-color: rgba(255,255,255,0.02) !important;
 }
 
-/* Force Tailwind to include admin classes */
-.admin-styles {
-  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white;
+/* Input fields / panels */
+.admin-root input,
+.admin-root textarea,
+.admin-root select,
+.admin-root .form-control {
+  background-color: #0b1220 !important;
+  color: #e6eef8 !important;
+  border-color: #374151 !important;
+}
+
+/* Message boxes (success/error) */
+.admin-root .bg-green-100 {
+  background-color: #052e16 !important;
+  color: #a7f3d0 !important;
+}
+
+.admin-root .bg-red-100 {
+  background-color: #2b0b0b !important;
+  color: #ffb4b4 !important;
+}
+
+/* Force icon colors (react-icons default) */
+.admin-root svg {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+/* Make scrollbar match dark admin */
+.admin-root ::-webkit-scrollbar-track {
+  background: #0b1220;
+}
+.admin-root ::-webkit-scrollbar-thumb {
+  background: #374151;
+}
+
+/* Keep Tailwind 'hover:bg-gray-50' from turning really light */
+.admin-root .hover\:bg-gray-50:hover {
+  background-color: rgba(255,255,255,0.03) !important;
+}
+
+/* Optionally, ensure text inside buttons is readable */
+.admin-root .text-gray-600 {
+  color: #cbd5e1 !important;
+}
+
+/* Ensure admin-root children inherit color */
+.admin-root, .admin-root * {
+  color: inherit;
 }

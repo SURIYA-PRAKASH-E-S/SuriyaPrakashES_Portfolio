@@ -32,7 +32,7 @@ const cloudProps = {
 };
 
 const renderCustomIcon = (icon, theme) => {
-  const bgHex = theme === "light" ? "#f3f2ef" : "#080510";
+  const bgHex = theme === "light" ? "#f3f2ef" : "#0d0d0d";  // darker & matches site
   const fallbackHex = theme === "light" ? "#6e6e73" : "#ffffff";
   const minContrastRatio = theme === "dark" ? 2 : 1.2;
 
@@ -170,7 +170,7 @@ const Skills = () => {
         {iconSlugs.length > 0 ? (
           <IconCloud iconSlugs={iconSlugs} theme={theme} />
         ) : (
-          <div className="text-center text-gray-500 dark:text-gray-400">
+          <div className="text-center text-gray-500 dark:text-gray-300">
             <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p>Loading 3D Tech Cloud...</p>
           </div>

@@ -7,7 +7,6 @@ import {
   FiUser, 
   FiBriefcase, 
   FiAward, 
-  FiSettings,
   FiMail,
   FiActivity
 } from 'react-icons/fi';
@@ -22,27 +21,30 @@ import AboutManager from '../components/admin/AboutManager';
 import ActivitiesManager from '../components/admin/ActivitiesManager';
 import ContactFooterManager from '../components/admin/ContactFooterManager';
 
-import '../../src/index.css'; 
-// import CSSDebugger from '../components/CSSDebugger';
 
-import { useTheme } from '../contexts/ThemeContext';
-// import ThemeToggle from '../components/ThemeToggle';
+// import { useTheme } from '../contexts/ThemeContext';
+
+
+
 
 const AdminDashboard = () => {
+
+
+useEffect(() => {
+  document.documentElement.classList.add("dark");
+  return () => document.documentElement.classList.remove("dark");
+}, []);
+
+
+
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('hero');
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
 
-  const { isDark } = useTheme(); // Add this
+  // const { isDark } = useTheme(); // Add this
   
-  // // Add debug info
-  // useEffect(() => {
-  //   console.log('🌙 Dark mode enabled:', isDark);
-  //   console.log('📄 HTML class:', document.documentElement.className);
-  //   console.log('💾 LocalStorage theme:', localStorage.getItem('theme'));
-  // }, [isDark]);
 
   // Form states
   const [heroData, setHeroData] = useState({
@@ -75,6 +77,7 @@ const AdminDashboard = () => {
     }
   }, [user, navigate]);
 
+  
   // Load existing data
   useEffect(() => {
     if (!user) return;
@@ -105,6 +108,8 @@ const AdminDashboard = () => {
       });
     });
   }, [user]);
+
+
 
   const handleLogout = async () => {
     try {
@@ -171,7 +176,7 @@ const AdminDashboard = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+<div className="admin-root min-h-screen bg-gray-900 text-gray-100">
       {/* <CSSDebugger /> */}
       {/* Header */}
       <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">

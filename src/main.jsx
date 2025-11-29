@@ -6,7 +6,6 @@ import App from './App.jsx'
 //Created by @suriyaes
 
 const root = createRoot(document.getElementById('root'))
-
 root.render(
   <StrictMode>
     <App />

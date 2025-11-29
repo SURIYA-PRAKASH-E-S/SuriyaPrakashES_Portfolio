@@ -171,7 +171,7 @@ const AdminSignIn = () => {
           {/* Admin Note */}
           <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
             <p className="text-sm text-yellow-800 dark:text-yellow-200 text-center">
-              🔒 This area is restricted to authorized administrators only.
+              🔒 This area is restricted to authorized administrator only.
             </p>
           </div>
         </div>

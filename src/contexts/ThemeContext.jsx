@@ -17,7 +17,7 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     // Check for saved theme preference or system preference
     const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: light)').matches;
     
     let themeToSet = false;
     
@@ -26,7 +26,7 @@ export const ThemeProvider = ({ children }) => {
       themeToSet = savedTheme === 'dark';
     } else {
       // Use system preference if no saved preference
-      themeToSet = systemPrefersDark;
+      themeToSet = true;
     }
     
     setIsDark(themeToSet);
@@ -40,11 +40,6 @@ export const ThemeProvider = ({ children }) => {
     
     setIsLoaded(true);
     
-    console.log('🎨 Theme loaded:', {
-      savedTheme,
-      systemPrefersDark,
-      appliedTheme: themeToSet ? 'dark' : 'light'
-    });
   }, []);
 
   const toggleTheme = () => {
@@ -60,7 +55,6 @@ export const ThemeProvider = ({ children }) => {
       localStorage.setItem('theme', 'light');
     }
     
-    console.log('🎨 Theme toggled to:', newIsDark ? 'dark' : 'light');
   };
 
   const setTheme = (theme) => {
