@@ -16,9 +16,8 @@ const FooterBottom = () => {
       className="
         w-full mt-10
         bg-gradient-to-r from-black/60 via-purple-700/50 to-black/60
-        dark:bg-gray-900/40
         backdrop-blur-xl
-        border-t border-gray-300 dark:border-gray-800
+        border-t border-purple-300/40
         rounded-t-3xl
         shadow-lg
         transition-colors duration-300
@@ -43,9 +42,9 @@ const FooterBottom = () => {
               whileTap={{ scale: 0.95 }}
               className="
                 flex items-center gap-2 px-3 py-2 rounded-xl
-                text-blue-100 dark:text-gray-300
-                hover:text-blue-300 dark:hover:text-blue-400
-                hover:bg-blue-900/20 dark:hover:bg-blue-900/20
+                text-blue-100
+                hover:text-blue-300
+                hover:bg-blue-900/20
                 transition-all duration-200
               "
               title={`Email: ${email}`}
@@ -62,9 +61,9 @@ const FooterBottom = () => {
               whileTap={{ scale: 0.95 }}
               className="
                 flex items-center gap-2 px-3 py-2 rounded-xl
-                text-blue-100 dark:text-gray-300
-                hover:text-green-300 dark:hover:text-green-400
-                hover:bg-green-900/20 dark:hover:bg-green-900/20
+                text-blue-100
+                hover:text-green-300
+                hover:bg-green-900/20
                 transition-all duration-200
               "
               title={`Call: ${phone}`}
@@ -79,7 +78,7 @@ const FooterBottom = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 300 }}
           >
-            <span className="text-blue-100 dark:text-gray-300 text-sm">
+            <span className="text-blue-100 text-sm">
               Made with
             </span>
             <motion.div
@@ -88,7 +87,7 @@ const FooterBottom = () => {
             >
               <FiHeart className="text-red-500 w-4 h-4" />
             </motion.div>
-            <span className="text-blue-100 dark:text-gray-300 text-sm">
+            <span className="text-blue-100 text-sm">
               by
             </span>
             <motion.a
@@ -97,8 +96,8 @@ const FooterBottom = () => {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1 }}
               className="
-                text-blue-300 dark:text-blue-400
-                hover:text-blue-400 dark:hover:text-blue-300
+                text-blue-300
+                hover:text-blue-400
                 font-semibold text-sm transition-colors
               "
             >

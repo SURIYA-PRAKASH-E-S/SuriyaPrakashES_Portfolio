@@ -11,6 +11,11 @@ const HeroAvatar = ({ data, isHovering, setIsHovering }) => {
   };
 
   const avatarData = data || defaultData;
+  const ringClasses = `flex h-56 w-56 items-center justify-center rounded-full border-4 bg-gray-900/90 overflow-hidden transition-all duration-500 md:h-72 md:w-72 ${
+    isHovering
+      ? 'border-green-400 shadow-[0_0_35px_rgba(34,197,94,0.45)]'
+      : 'border-gray-800 shadow-inner'
+  }`;
 
   return (
     <motion.div
@@ -36,18 +41,24 @@ const HeroAvatar = ({ data, isHovering, setIsHovering }) => {
       >
         <div className="relative">
           
-          {/* Avatar container (unchanged) */}
-          <div className="w-64 h-64 md:w-80 md:h-80 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-2xl shadow-purple-500/25">
-
-            <div className="w-56 h-56 md:w-72 md:h-72 bg-gray-800 rounded-full overflow-hidden border-4 border-gray-800 shadow-inner">
-
+          {/* Avatar container */}
+          <motion.div
+            className="flex h-64 w-64 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 shadow-2xl shadow-purple-500/25 transition-transform duration-500 md:h-80 md:w-80"
+            animate={isHovering ? { scale: 1.04, rotate: -2, y: -6 } : { scale: 1, rotate: 0, y: 0 }}
+            transition={{ type: 'spring', stiffness: 160, damping: 18 }}
+          >
+            <motion.div
+              className={ringClasses}
+              animate={isHovering ? { y: -4, rotate: -1 } : { y: 0, rotate: 0 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+            >
               {/* Hover = animated avatar, normal = regular avatar (structure unchanged) */}
               {isHovering && avatarData.animatedAvatar ? (
                 <motion.img
                   key="animated"
                   src={avatarData.animatedAvatar}
                   alt={`${avatarData.name} animated`}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
@@ -57,22 +68,19 @@ const HeroAvatar = ({ data, isHovering, setIsHovering }) => {
                   key="normal"
                   src={avatarData.avatar}
                   alt={avatarData.name}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 />
               ) : (
                 // Default fallback
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-600">
-                  <span className="text-gray-300 text-sm">No Avatar</span>
+                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-gray-700 to-gray-600">
+                  <span className="text-sm text-gray-300">No Avatar</span>
                 </div>
               )}
-
-            </div>
-          </div>
-
-
+            </motion.div>
+          </motion.div>
         </div>
       </motion.div>
     </motion.div>

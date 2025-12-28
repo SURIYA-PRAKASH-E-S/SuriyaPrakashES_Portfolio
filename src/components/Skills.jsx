@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useSkillsData } from "../hooks/usePortfolioData";
 import { Cloud, fetchSimpleIcons, renderSimpleIcon } from "react-icon-cloud";
+import { useTheme } from "../contexts/ThemeContext";
 
 // 3D Cloud configuration
 const cloudProps = {
@@ -74,7 +75,7 @@ const IconCloud = ({ iconSlugs, theme = "light" }) => {
 
 const Skills = () => {
   const { data: skillsData, loading, error } = useSkillsData();
-  const [theme, setTheme] = useState("light");
+  const { theme: activeTheme } = useTheme();
 
   // Default skills
   const defaultSkills = [
@@ -107,11 +108,6 @@ const Skills = () => {
 
   const iconSlugs = skills.map((s) => s.iconSlug).filter(Boolean);
 
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
-  }, []);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.05 } },
@@ -140,7 +136,7 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative py-20 md:py-28 bg-transparent text-center overflow-hidden"
+      className="relative overflow-hidden bg-white py-20 text-center transition-colors duration-500 dark:bg-slate-900 md:py-28"
     >
       {/* Header */}
       <motion.div
@@ -150,11 +146,11 @@ const Skills = () => {
         viewport={{ once: true }}
         className="mb-16"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-black mb-4">
+        <h2 className="mb-4 text-3xl font-bold text-slate-900 dark:text-slate-100 md:text-4xl">
           Skills
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-yellow-500 mx-auto mb-6 rounded-full"></div>
-        <p className="text-lg text-black dark:text-black max-w-2xl mx-auto">
+        <p className="mx-auto max-w-2xl text-lg text-slate-600 dark:text-slate-300">
           Technologies I work with to build innovative digital experiences
         </p>
       </motion.div>
@@ -168,7 +164,7 @@ const Skills = () => {
         className="relative h-96 flex items-center justify-center mb-16"
       >
         {iconSlugs.length > 0 ? (
-          <IconCloud iconSlugs={iconSlugs} theme={theme} />
+          <IconCloud iconSlugs={iconSlugs} theme={activeTheme === "dark" ? "dark" : "light"} />
         ) : (
           <div className="text-center text-gray-500 dark:text-gray-300">
             <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -200,11 +196,10 @@ const Skills = () => {
               px-8 py-3
               rounded-full
               font-semibold
-              text-black dark:text-black
-              bg-white/30 dark:bg-gray-800/40
-              backdrop-blur-md
+              text-slate-900 dark:text-slate-100
+              bg-white dark:bg-slate-800/90
               shadow-md hover:shadow-xl
-              border border-gray-300/40 dark:border-gray-600/40
+              border border-slate-200 dark:border-slate-700
               transition-all duration-300 ease-in-out
             "
           >

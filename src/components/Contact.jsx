@@ -103,42 +103,44 @@ const Contact = () => {
   };
 
   return (
- <section
-  id="contact"
-  className="py-20 bg-gradient-to-b from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 transition-all duration-500"
->
+    <section
+      id="contact"
+      className="group relative overflow-hidden bg-white py-20 transition-all duration-500 dark:bg-slate-950 md:py-24"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 opacity-80 transition duration-700 group-hover:opacity-100 bg-gradient-to-b from-sky-300/40 via-sky-200/0 to-transparent dark:from-sky-500/30 dark:via-sky-500/0 blur-3xl" />
 
-      <div className="container mx-auto px-4">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold text-blue-700 dark:text-blue-400 mb-4">
-            Let’s Connect 💬
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6 rounded-full"></div>
-          <p className="text-lg text-blue-700 dark:text-blue-400 max-w-2xl mx-auto leading-relaxed">
-            I’d love to hear from you — whether it’s about a project, an opportunity, or just a friendly chat.
-          </p>
-        </motion.div>
-
-        <div className="max-w-6xl mx-auto">
+      <div className="relative z-10">
+        <div className="container mx-auto px-4">
+          {/* Heading */}
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="grid lg:grid-cols-2 gap-12"
+            className="mb-16 text-center"
           >
+            <h2 className="mb-4 text-4xl font-bold text-blue-700 dark:text-blue-400">
+              Let’s Connect 💬
+            </h2>
+            <div className="mx-auto mb-6 h-1 w-24 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500" />
+            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-blue-700 dark:text-blue-400">
+              I’d love to hear from you — whether it’s about a project, an opportunity, or just a friendly chat.
+            </p>
+          </motion.div>
+
+          <div className="mx-auto max-w-6xl">
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid gap-12 lg:grid-cols-2"
+            >
             {/* Info Section */}
             <div>
               <motion.p
                 variants={itemVariants}
-                className="text-gray-800 dark:text-gray-700 mb-8 leading-relaxed"
+                className="mb-8 leading-relaxed text-gray-800 dark:text-gray-300"
               >
                 Drop me a message — I’m always excited to collaborate and connect with creative people.
               </motion.p>
@@ -272,10 +274,10 @@ const Contact = () => {
               )}
             </motion.div>
           </motion.div>
+          </div>
+          <FooterBottom />
         </div>
       </div>
-
-      <FooterBottom />
     </section>
   );
 };

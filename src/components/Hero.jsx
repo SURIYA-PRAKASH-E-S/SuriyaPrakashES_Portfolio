@@ -174,11 +174,24 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-bold mb-4"
+            className="mb-4 text-5xl font-bold leading-tight tracking-tight md:text-6xl"
           >
-            Hi, I'm{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              {data.name}
+            <span className="inline-flex items-baseline gap-3 whitespace-nowrap">
+              <span className="text-slate-200">Hi, I'm</span>
+              <motion.span
+                className="bg-gradient-to-r from-sky-300 via-indigo-200 to-pink-300 bg-clip-text text-transparent"
+                animate={{
+                  filter: [
+                    'drop-shadow(0 0 0 rgba(125,211,252,0))',
+                    'drop-shadow(0 0 14px rgba(56,189,248,0.55))',
+                    'drop-shadow(0 0 10px rgba(236,72,153,0.45))',
+                    'drop-shadow(0 0 0 rgba(125,211,252,0))'
+                  ]
+                }}
+                transition={{ duration: 2.6, repeat: Infinity, repeatType: 'mirror' }}
+              >
+                {data.name}
+              </motion.span>
             </span>
           </motion.h1>
 

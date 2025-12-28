@@ -19,28 +19,7 @@ const Projects = () => {
       githubLink: "#",
       featured: true,
     },
-    {
-      id: 2,
-      title: "E-Commerce Platform",
-      description:
-        "Full-stack e-commerce solution with authentication, payments, and admin dashboard using modern web technologies.",
-      image: "",
-      technologies: ["Next.js", "Node.js", "MongoDB", "Stripe"],
-      liveLink: "#",
-      githubLink: "#",
-      featured: false,
-    },
-    {
-      id: 3,
-      title: "Task Management App",
-      description:
-        "A collaborative productivity app for managing projects and deadlines in real-time.",
-      image: "",
-      technologies: ["React", "Socket.io", "Express", "PostgreSQL"],
-      liveLink: "#",
-      githubLink: "#",
-      featured: true,
-    },
+
   ];
 
   const projects = Array.isArray(projectsData) ? projectsData : defaultProjects;
@@ -96,7 +75,7 @@ const Projects = () => {
           <h2
             className="
               text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold 
-              text-transparent bg-gradient-to-r from-purple-300 via-blue-300 to-violet-300 bg-clip-text
+              text-gray-900 dark:text-gray-100 bg-gradient-to-r from-purple-300 via-blue-300 to-violet-300 bg-clip-text
               mb-3 sm:mb-4
             "
           >

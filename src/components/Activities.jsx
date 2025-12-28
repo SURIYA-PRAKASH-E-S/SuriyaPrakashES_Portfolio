@@ -41,7 +41,7 @@ const Activities = () => {
     return (
       <section
         id="experience"
-        className="py-20 bg-gradient-to-b from-gray-900 to-gray-950 text-white transition-colors duration-300"
+        className="py-20 bg-slate-950 text-white transition-colors duration-300"
       >
         <div className="container mx-auto px-4 text-center">
           <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -62,12 +62,7 @@ const Activities = () => {
   return (
     <section
       id="experience"
-      className="
-        py-20 
-        bg-gradient-to-b from-white via-blue-50 to-indigo-100 
-        dark:from-gray-900 dark:to-gray-950 
-        transition-colors duration-500
-      "
+      className="py-20 bg-white transition-colors duration-500 dark:bg-slate-950"
     >
       <div className="container mx-auto px-4">
         {/* Header */}
@@ -78,11 +73,11 @@ const Activities = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Work Experience
           </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-900 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <div className="w-24 h-1 bg-sky-500 mx-auto mb-6"></div>
+          <p className="text-lg text-slate-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
             A showcase of my internships, certifications, and various activities that have shaped my professional journey.
           </p>
         </motion.div>
@@ -98,10 +93,10 @@ const Activities = () => {
           {hasInternships && (
             <div>
               <motion.div variants={itemVariants} className="flex items-center mb-8">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-lg mr-4">
+                <div className="p-3 bg-sky-100 text-sky-700 rounded-lg mr-4 dark:bg-sky-900/60 dark:text-sky-300">
                   <FiBriefcase className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   Internships
                 </h3>
               </motion.div>
@@ -113,18 +108,18 @@ const Activities = () => {
                     variants={itemVariants}
                     whileHover={{ scale: 1.01 }}
                     className="
-                      bg-white dark:bg-gray-800 
-                      rounded-xl shadow-lg p-6 
-                      border-l-4 border-blue-500 
+                      bg-white dark:bg-slate-900/70
+                      rounded-xl shadow-lg p-6
+                      border-l-4 border-sky-500
                       transition-all duration-300
                     "
                   >
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-4">
                       <div className="flex-1">
-                        <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                        <h4 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
                           {internship.role}
                         </h4>
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-gray-800 dark:text-gray-600">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-slate-700 dark:text-slate-300">
                           <span className="font-medium">{internship.company}</span>
                           <span className="hidden sm:inline">•</span>
                           <span>{internship.location}</span>
@@ -132,10 +127,10 @@ const Activities = () => {
                       </div>
                       <span
                         className="
-                          text-sm font-semibold text-blue-600 dark:text-blue-300
-                          bg-blue-100 dark:bg-blue-900 
-                          px-4 py-2 rounded-full shadow-sm 
-                          transition-all duration-300 hover:bg-blue-200 dark:hover:bg-blue-800
+                          text-sm font-semibold text-sky-700 dark:text-sky-300
+                          bg-sky-100 dark:bg-sky-900/60
+                          px-4 py-2 rounded-full shadow-sm
+                          transition-all duration-300 hover:bg-sky-200 dark:hover:bg-sky-800
                           hover:scale-105 cursor-pointer
                         "
                       >
@@ -144,7 +139,7 @@ const Activities = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="text-blue-800 dark:text-blue-400 mb-4 leading-relaxed transition-colors duration-300">
+                    <p className="text-sky-700 dark:text-sky-300 mb-4 leading-relaxed transition-colors duration-300">
                         {internship.description}
                     </p>
 
@@ -156,8 +151,8 @@ const Activities = () => {
                           <span
                             key={i}
                             className="
-                              px-3 py-1 bg-blue-100 dark:bg-blue-900 
-                              text-blue-700 dark:text-blue-400 
+                              px-3 py-1 bg-sky-100 dark:bg-sky-900/70
+                              text-sky-700 dark:text-sky-300
                               rounded-full text-sm font-medium
                             "
                           >
@@ -176,10 +171,10 @@ const Activities = () => {
           {hasCertifications && (
             <div>
               <motion.div variants={itemVariants} className="flex items-center mb-8">
-                <div className="p-3 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-lg mr-4">
+                <div className="p-3 bg-emerald-100 text-emerald-700 rounded-lg mr-4 dark:bg-emerald-900/50 dark:text-emerald-300">
                   <FiAward className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   Certifications
                 </h3>
               </motion.div>
@@ -192,21 +187,21 @@ const Activities = () => {
                   <div
                     key={cert.id}
                     className="
-                      bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center
-                      border border-gray-200 dark:border-gray-700
+                      bg-white dark:bg-slate-900/70 rounded-xl shadow-lg p-6 text-center
+                      border border-slate-200 dark:border-slate-700
                       hover:shadow-xl transition-all duration-300
                     "
                   >
-                    <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <FiAward className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
+                    <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/60 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <FiAward className="w-6 h-6 text-amber-600 dark:text-amber-300" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2">
+                    <h4 className="font-semibold text-slate-900 dark:text-slate-100 mb-2 line-clamp-2">
                       {cert.name}
                     </h4>
-                    <p className="text-gray-700 dark:text-gray-400 text-sm mb-3">
+                    <p className="text-slate-700 dark:text-slate-300 text-sm mb-3">
                       {cert.issuer}
                     </p>
-                    <span className="inline-block text-xs text-gray-700 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
+                    <span className="inline-block text-xs text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
                       {cert.date}
                     </span>
                   </div>
@@ -219,10 +214,10 @@ const Activities = () => {
           {hasActivities && (
             <div>
               <motion.div variants={itemVariants} className="flex items-center mb-8">
-                <div className="p-3 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 rounded-lg mr-4">
+                <div className="p-3 bg-violet-100 text-violet-700 rounded-lg mr-4 dark:bg-violet-900/50 dark:text-violet-300">
                   <FiActivity className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   Activities
                 </h3>
               </motion.div>
@@ -234,13 +229,13 @@ const Activities = () => {
                     variants={itemVariants}
                     whileHover={{ scale: 1.02 }}
                     className={`
-                      bg-white dark:bg-gray-800 
+                      bg-white dark:bg-slate-900/70 
                       rounded-xl shadow-lg p-6 
                       border-t-4 transition-all duration-300
                       ${
                         activity.type === 'co-curricular'
-                          ? 'border-blue-500'
-                          : 'border-green-500'
+                          ? 'border-sky-500'
+                          : 'border-emerald-500'
                       }
                     `}
                   >
@@ -250,8 +245,8 @@ const Activities = () => {
                           text-xs font-semibold px-3 py-1 rounded-full
                           ${
                             activity.type === 'co-curricular'
-                              ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
-                              : 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400'
+                              ? 'bg-sky-100 dark:bg-sky-900/60 text-sky-700 dark:text-sky-300'
+                              : 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300'
                           }
                         `}
                       >
@@ -259,31 +254,19 @@ const Activities = () => {
                           ? 'Co-curricular'
                           : 'Extra-curricular'}
                       </span>
-                      <span
-                        className="
-                          text-xs font-semibold text-blue-700 dark:text-blue-300
-                          bg-blue-100 dark:bg-blue-900 px-3 py-1 rounded-full
-                          hover:bg-blue-200 dark:hover:bg-blue-800 
-                          transition-all duration-300 cursor-pointer
-                        "
-                      >
-                        {activity.date}
-                      </span>
                     </div>
-
-                    <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                    <h4 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
                       {activity.title}
                     </h4>
-                    <p className="text-blue-700 dark:text-blue-400 text-sm font-medium mb-2">
+                    <p className="text-sky-700 dark:text-sky-300 text-sm font-medium mb-2">
                       {activity.organization}
                     </p>
 
                     <p
                       className="
-                        text-gray-800 dark:text-gray-300 text-sm leading-relaxed
+                        text-slate-700 dark:text-slate-300 text-sm leading-relaxed
                         transition-all duration-300
-                        hover:text-transparent hover:bg-clip-text
-                        hover:bg-gradient-to-r hover:from-gray-900 hover:to-blue-700
+                        hover:text-slate-900 dark:hover:text-slate-100
                       "
                     >
                       {activity.description}
