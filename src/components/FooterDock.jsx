@@ -9,11 +9,14 @@ import {
   FiSun,
   FiMoon,
   FiMail,
+  FiPlay,
+  FiBarChart2,
 } from 'react-icons/fi';
 import { useContactData } from '../hooks/usePortfolioData';
 import { useTheme } from '../contexts/ThemeContext'; // Import useTheme
+import BgmToggle from './BgmToggle';
 
-const FooterDock = () => {
+const FooterDock = ({}) => {
   const { isDark, toggleTheme } = useTheme(); // Use the theme context
   const [isHovered, setIsHovered] = useState(false);
   const { data: contactData } = useContactData();
@@ -159,6 +162,7 @@ const FooterDock = () => {
             <FiSun className="w-5 h-5" />
           )}
         </motion.button>
+        <BgmToggle />
       </motion.div>
     </footer>
   );

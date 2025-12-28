@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import { ThemeProvider } from './contexts/ThemeContext';
 import { FirebaseProvider } from './contexts/FirebaseContext';
 import { AuthProvider } from './contexts/AuthContext';
@@ -21,11 +22,10 @@ function App() {
       <FirebaseProvider>
         <AuthProvider>
           <Router>
-            {/* <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300"> */}
-              
-              <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={
+            <Routes>
+              <Route
+                path="/"
+                element={
                   <>
                     <main>
                       <Hero />
@@ -37,21 +37,20 @@ function App() {
                     </main>
                     <FooterDock />
                   </>
-                } />
-                
-                {/* Admin Routes */}
-                <Route path="/admin/signin" element={<AdminSignIn />} />
-                <Route 
-                  path="/admin" 
-                  element={
-                    <ProtectedRoute>
-                      <AdminDashboard />
-                    </ProtectedRoute>
-                  } 
-                />
-              </Routes>
-              <LoadingSpinner />
-            {/* </div> */}
+                }
+              />
+
+              <Route path="/admin/signin" element={<AdminSignIn />} />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+            <LoadingSpinner />
           </Router>
         </AuthProvider>
       </FirebaseProvider>

@@ -36,3 +36,4 @@ export const useSkillsData = () => usePortfolioData('skills');
 export const useActivitiesData = () => usePortfolioData('activities');
 export const useSocialData = () => usePortfolioData('social');
 export const useContactData = () => usePortfolioData('contact');
+export const useKeynoteData = () => usePortfolioData('keynote');
