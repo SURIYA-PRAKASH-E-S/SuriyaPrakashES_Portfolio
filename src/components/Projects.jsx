@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiGlobe, FiGithub, FiTag, FiExternalLink } from 'react-icons/fi';
 import { useProjectsData } from '../hooks/usePortfolioData';
+import LazyImage from './LazyImage';
 
 const Projects = () => {
   const { data: projectsData, loading, error } = useProjectsData();
@@ -125,14 +126,10 @@ const Projects = () => {
                 {/* Image or Placeholder */}
                 <div className="relative h-36 sm:h-44 md:h-48 lg:h-52 xl:h-56 bg-gradient-to-br from-purple-800 via-blue-900 to-gray-900 flex items-center justify-center overflow-hidden">
                   {project.image ? (
-                    <img
+                    <LazyImage
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
                     />
                   ) : (
                     <div className="text-purple-100 text-center p-3 sm:p-4 flex flex-col items-center justify-center">

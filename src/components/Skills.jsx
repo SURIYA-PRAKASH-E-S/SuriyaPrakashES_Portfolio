@@ -136,7 +136,7 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative overflow-hidden bg-white py-20 text-center transition-colors duration-500 dark:bg-slate-900 md:py-28"
+      className="relative overflow-hidden bg-white py-16 sm:py-20 text-center transition-colors duration-500 dark:bg-slate-900 md:py-28"
     >
       {/* Header */}
       <motion.div
@@ -144,13 +144,13 @@ const Skills = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="mb-16"
+        className="mb-12 sm:mb-16"
       >
-        <h2 className="mb-4 text-3xl font-bold text-slate-900 dark:text-slate-100 md:text-4xl">
+        <h2 className="mb-4 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 md:text-4xl">
           Skills
         </h2>
-        <div className="w-24 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-yellow-500 mx-auto mb-6 rounded-full"></div>
-        <p className="mx-auto max-w-2xl text-lg text-slate-600 dark:text-slate-300">
+        <div className="w-16 sm:w-20 lg:w-24 h-0.5 sm:h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-yellow-500 mx-auto mb-4 sm:mb-6 rounded-full"></div>
+        <p className="mx-auto max-w-2xl text-base sm:text-lg text-slate-600 dark:text-slate-300">
           Technologies I work with to build innovative digital experiences
         </p>
       </motion.div>
@@ -161,13 +161,13 @@ const Skills = () => {
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        className="relative h-96 flex items-center justify-center mb-16"
+        className="relative h-64 sm:h-80 md:h-96 flex items-center justify-center mb-12 sm:mb-16"
       >
         {iconSlugs.length > 0 ? (
           <IconCloud iconSlugs={iconSlugs} theme={activeTheme === "dark" ? "dark" : "light"} />
         ) : (
           <div className="text-center text-gray-500 dark:text-gray-300">
-            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p>Loading 3D Tech Cloud...</p>
           </div>
         )}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiSave, FiPlus, FiTrash2, FiUpload, FiVideo, FiFile, FiDownload } from 'react-icons/fi';
 import { uploadToCloudinary } from '../../utils/cloudinary';
+import LazyImage from '../LazyImage';
 
 const HeroManager = ({ heroData, onSave, saving }) => {
   const [formData, setFormData] = useState(heroData);
@@ -219,13 +220,10 @@ const HeroManager = ({ heroData, onSave, saving }) => {
           </div>
           {formData.avatar && (
             <div className="mt-2">
-              <img 
+              <LazyImage 
                 src={formData.avatar} 
                 alt="Static avatar preview" 
                 className="w-20 h-20 rounded-full object-cover border-2 border-gray-300"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
               />
             </div>
           )}
@@ -287,7 +285,7 @@ const HeroManager = ({ heroData, onSave, saving }) => {
                   }}
                 />
               ) : (
-                <img 
+                <LazyImage 
                   src={formData.animatedAvatar} 
                   alt="Animated avatar preview" 
                   className="w-20 h-20 rounded-full object-cover border-2 border-purple-300"

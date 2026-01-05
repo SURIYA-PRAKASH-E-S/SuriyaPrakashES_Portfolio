@@ -105,25 +105,25 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="group relative overflow-hidden bg-white py-20 transition-all duration-500 dark:bg-slate-950 md:py-24"
+      className="group relative overflow-hidden bg-white py-16 sm:py-20 transition-all duration-500 dark:bg-slate-950 md:py-24"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 opacity-80 transition duration-700 group-hover:opacity-100 bg-gradient-to-b from-sky-300/40 via-sky-200/0 to-transparent dark:from-sky-500/30 dark:via-sky-500/0 blur-3xl" />
 
       <div className="relative z-10">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Heading */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="mb-16 text-center"
+            className="mb-12 sm:mb-16 text-center"
           >
-            <h2 className="mb-4 text-4xl font-bold text-blue-700 dark:text-blue-400">
+            <h2 className="mb-4 text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-700 dark:text-blue-400">
               Let’s Connect 💬
             </h2>
-            <div className="mx-auto mb-6 h-1 w-24 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500" />
-            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-blue-700 dark:text-blue-400">
+            <div className="mx-auto mb-4 sm:mb-6 h-0.5 sm:h-1 w-16 sm:w-20 lg:w-24 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500" />
+            <p className="mx-auto max-w-2xl text-base sm:text-lg leading-relaxed text-blue-700 dark:text-blue-400">
               I’d love to hear from you — whether it’s about a project, an opportunity, or just a friendly chat.
             </p>
           </motion.div>
@@ -134,23 +134,23 @@ const Contact = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="grid gap-12 lg:grid-cols-2"
+              className="grid gap-8 sm:gap-12 lg:grid-cols-2"
             >
             {/* Info Section */}
             <div>
               <motion.p
                 variants={itemVariants}
-                className="mb-8 leading-relaxed text-gray-800 dark:text-gray-300"
+                className="mb-6 sm:mb-8 leading-relaxed text-gray-800 dark:text-gray-300"
               >
                 Drop me a message — I’m always excited to collaborate and connect with creative people.
               </motion.p>
 
               {socialLinks.length > 0 && (
                 <motion.div variants={itemVariants} className="mt-6">
-                  <h4 className="text-lg font-semibold text-blue-700 dark:text-blue-400 mb-4">
+                  <h4 className="text-base sm:text-lg font-semibold text-blue-700 dark:text-blue-400 mb-3 sm:mb-4">
                     Connect with Me
                   </h4>
-                  <div className="flex gap-4">
+                  <div className="flex gap-3 sm:gap-4">
                     {socialLinks.map((social, index) => (
                       <motion.a
                         key={index}
@@ -158,7 +158,7 @@ const Contact = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.08, y: -2 }}
-                        className={`p-3 bg-white dark:bg-gray-800 rounded-lg shadow-md text-gray-700 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 ${social.color}`}
+                        className="p-2 sm:p-3 bg-white dark:bg-gray-800 rounded-lg shadow-md text-gray-700 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 ${social.color}"
                         aria-label={social.name}
                       >
                         {social.icon}
@@ -172,7 +172,7 @@ const Contact = () => {
             {/* Contact Form */}
             <motion.div
               variants={itemVariants}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 transition-all duration-500"
+              className="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8 transition-all duration-500"
             >
               {isSubmitted ? (
                 <motion.div

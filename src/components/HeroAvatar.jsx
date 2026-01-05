@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
+import LazyImage from './LazyImage';
 
 const HeroAvatar = ({ data, isHovering, setIsHovering }) => {
   const avatarRef = useRef(null);
@@ -54,24 +55,16 @@ const HeroAvatar = ({ data, isHovering, setIsHovering }) => {
             >
               {/* Hover = animated avatar, normal = regular avatar (structure unchanged) */}
               {isHovering && avatarData.animatedAvatar ? (
-                <motion.img
-                  key="animated"
+                <LazyImage
                   src={avatarData.animatedAvatar}
                   alt={`${avatarData.name} animated`}
                   className="h-full w-full object-cover"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
                 />
               ) : avatarData.avatar ? (
-                <motion.img
-                  key="normal"
+                <LazyImage
                   src={avatarData.avatar}
                   alt={avatarData.name}
                   className="h-full w-full object-cover"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
                 />
               ) : (
                 // Default fallback

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiSave, FiPlus, FiTrash2, FiUpload } from 'react-icons/fi';
 import { uploadToCloudinary } from '../../utils/cloudinary';
+import LazyImage from '../LazyImage';
 
 const SkillsManager = ({ skills, onSave, saving }) => {
   const [localSkills, setLocalSkills] = useState(Array.isArray(skills) ? skills : []);
@@ -214,52 +215,8 @@ const SkillsManager = ({ skills, onSave, saving }) => {
                       ) : (
                         <FiUpload className="w-4 h-4" />
                       )}
-                      Upload
                     </label>
                   </div>
-                </div>
-                {skill.iconUrl && (
-                  <div className="mt-2">
-                    <img 
-                      src={skill.iconUrl} 
-                      alt="Icon preview" 
-                      className="w-8 h-8 object-contain"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-
-              {/* Preview */}
-              <div className="md:col-span-3">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Preview
-                </label>
-                <div className="flex items-center gap-3 px-4 py-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                  {skill.iconUrl ? (
-                    <img 
-                      src={skill.iconUrl} 
-                      alt={skill.name}
-                      className="w-6 h-6 object-contain"
-                      onError={(e) => {
-                        // Fallback to simple-icons or emoji
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                  ) : skill.iconSlug ? (
-                    <img 
-                      src={`https://cdn.simpleicons.org/${skill.iconSlug}`}
-                      alt={skill.name}
-                      className="w-6 h-6"
-                    />
-                  ) : (
-                    <span className="text-lg">{skill.icon || '💡'}</span>
-                  )}
-                  <span className="font-medium text-gray-700 dark:text-gray-300">
-                    {skill.name || 'Technology Name'}
-                  </span>
                 </div>
               </div>
             </div>

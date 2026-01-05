@@ -92,22 +92,22 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20 bg-gradient-to-br from-purple-100 via-blue-50 to-purple-200 dark:from-[#0f0c29] dark:via-[#302b63] dark:to-[#24243e] transition-all duration-700"
+      className="py-16 sm:py-20 bg-gradient-to-br from-purple-100 via-blue-50 to-purple-200 dark:from-[#0f0c29] dark:via-[#302b63] dark:to-[#24243e] transition-all duration-700"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl font-extrabold text-indigo-900 dark:text-blue-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-indigo-900 dark:text-blue-100 mb-4">
             About Me
           </h2>
           <div className="w-24 h-1 bg-indigo-500 mx-auto mb-6 rounded-full"></div>
-          <p className="text-lg text-gray-800 dark:text-blue-200 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-800 dark:text-blue-200 max-w-2xl mx-auto">
             My educational journey and passion for technology that drives me forward.
           </p>
         </motion.div>
@@ -122,55 +122,55 @@ const About = () => {
         >
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-indigo-300 dark:bg-indigo-700 transform -translate-x-1/2 transition-colors duration-300"></div>
+            <div className="absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-indigo-300 dark:bg-indigo-700 transform -translate-x-1/2 transition-colors duration-300"></div>
 
             {educationData.map((edu, index) => (
               <motion.div
                 key={edu.id || index}
                 variants={itemVariants}
-                className={`relative flex items-center mb-12 ${
+                className={`relative flex items-center mb-8 sm:mb-12 ${
                   index % 2 === 0 ? "md:flex-row-reverse" : ""
                 }`}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-indigo-600 rounded-full transform -translate-x-1/2 z-10 shadow-md"></div>
+                <div className="absolute left-6 sm:left-8 md:left-1/2 w-3 sm:w-4 h-3 sm:h-4 bg-indigo-600 rounded-full transform -translate-x-1/2 z-10 shadow-md"></div>
 
                 {/* Timeline Card */}
                 <div
-                  className={`ml-16 md:ml-0 md:w-1/2 ${
-                    index % 2 === 0 ? "md:pr-12" : "md:pl-12"
+                  className={`ml-12 sm:ml-16 md:ml-0 md:w-1/2 ${
+                    index % 2 === 0 ? "md:pr-8 lg:pr-12" : "md:pl-8 lg:pl-12"
                   }`}
                 >
                   <motion.div
                     whileHover={{ scale: 1.03 }}
-                    className="bg-white/80 dark:bg-[#1e1e2f] rounded-xl shadow-xl p-6 border-l-4 border-indigo-600 hover:border-indigo-400 transition-all duration-300"
+                    className="bg-white/80 dark:bg-[#1e1e2f] rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl p-4 sm:p-6 border-l-4 border-indigo-600 hover:border-indigo-400 transition-all duration-300"
                   >
                     <div className="flex items-center mb-4">
-                      <div className="p-2 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-400 rounded-lg mr-4">
+                      <div className="p-1.5 sm:p-2 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-400 rounded-lg mr-3 sm:mr-4">
                         {getIcon(edu.iconType)}
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold text-indigo-900 dark:text-blue-100">
+                        <h3 className="text-lg sm:text-xl font-semibold text-indigo-900 dark:text-blue-100">
                           {edu.institution}
                         </h3>
-                        <p className="font-medium text-blue-700 dark:text-blue-300">
+                        <p className="text-sm sm:text-base font-medium text-blue-700 dark:text-blue-300">
                           {edu.degree}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm text-indigo-900 dark:text-blue-200 bg-indigo-100 dark:bg-indigo-800 px-3 py-1 rounded-full">
+                      <span className="text-xs sm:text-sm text-indigo-900 dark:text-blue-200 bg-indigo-100 dark:bg-indigo-800 px-2 sm:px-3 py-1 rounded-full">
                         {edu.period}
                       </span>
                       {edu.status === "ongoing" && (
-                        <span className="text-sm bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-400 px-3 py-1 rounded-full font-medium">
+                        <span className="text-xs sm:text-sm bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-400 px-2 sm:px-3 py-1 rounded-full font-medium">
                           Currently Studying
                         </span>
                       )}
                     </div>
 
-                    <p className="text-gray-800 dark:text-blue-200 leading-relaxed">
+                    <p className="text-sm sm:text-base text-gray-800 dark:text-blue-200 leading-relaxed">
                       {edu.description}
                     </p>
                   </motion.div>

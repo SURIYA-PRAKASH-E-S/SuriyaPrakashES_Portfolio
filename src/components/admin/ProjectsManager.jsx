@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiSave, FiPlus, FiTrash2, FiUpload, FiTag } from 'react-icons/fi';
 import { uploadToCloudinary } from '../../utils/cloudinary';
+import LazyImage from '../LazyImage';
 
 const ProjectsManager = ({ projects, onSave, saving }) => {
   const [localProjects, setLocalProjects] = useState(projects);
@@ -211,7 +212,7 @@ const ProjectsManager = ({ projects, onSave, saving }) => {
                 </div>
                 {project.image && (
                   <div className="mt-2">
-                    <img 
+                    <LazyImage 
                       src={project.image} 
                       alt="Project preview" 
                       className="w-32 h-20 object-cover rounded border border-gray-300"

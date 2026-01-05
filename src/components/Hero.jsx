@@ -167,14 +167,14 @@ const Hero = () => {
         transition={{ duration: 7, repeat: Infinity }}
       />
 
-      <div className="relative z-10 container mx-auto px-6 flex flex-col lg:flex-row items-center justify-between">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
         {/* Text Content */}
-        <div className="lg:w-1/2 text-center lg:text-left">
+        <div className="lg:w-1/2 text-center lg:text-left order-2 lg:order-1">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-4 text-5xl font-bold leading-tight tracking-tight md:text-6xl"
+            className="mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight"
           >
             <span className="inline-flex items-baseline gap-3 whitespace-nowrap">
               <span className="text-slate-200">Hi, I'm</span>
@@ -199,7 +199,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-xl md:text-2xl font-medium text-blue-300 mb-6"
+            className="text-lg sm:text-xl md:text-2xl font-medium text-blue-300 mb-6"
           >
             {text}
             <motion.span
@@ -215,13 +215,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-gray-300 mb-8 max-w-2xl leading-relaxed"
+            className="text-gray-300 mb-6 sm:mb-8 max-w-2xl leading-relaxed text-sm sm:text-base"
           >
             {data.description}
           </motion.p>
 
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
@@ -235,7 +235,7 @@ const Hero = () => {
               onClick={() =>
                 document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 justify-center"
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 sm:px-8 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 justify-center text-sm sm:text-base"
             >
               <FiExternalLink className="w-5 h-5" />
               View My Work
